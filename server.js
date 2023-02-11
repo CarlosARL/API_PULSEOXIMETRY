@@ -1,15 +1,18 @@
-const express = require("express");
-const app = express();
-const server = require("http").Server(app);
-const io = require("socket.io")(server);
-
-io.on("connection", (socket) => {
-  console.log("Client connected");
-  socket.on("message", (data) => {
-    console.log("Received message:", data);
-  });
+var http = require('http');
+var server = http.createServer(function(req, res) {
+    if (req.method === 'GET' && req.url === '/data') {
+        console.log('Received data:');
+        req.on('data', function(chunk) {
+            console.log(chunk.toString());
+        });
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('Data received.');
+    } else {
+        res.writeHead(404, {'Content-Type': 'text/plain'});
+        res.end('Not found.');
+    }
 });
-
-server.listen(5555, () => {
-  console.log("Server listening on port 3000");
+var port = 5555;
+server.listen(port, function() {
+    console.log('Listening on port ' + port);
 });
