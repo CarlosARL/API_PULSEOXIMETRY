@@ -6,7 +6,7 @@ app.get('/data', (req, res) => {
   let bpm = req.query.bpm;
   let spo2 = req.query.spo2;
   
-  console.log(`Received data: BPM = ${bpm}, SPO2 = ${spo2}`);
+  console.log(`Received data: BPM = ${bpm}, SPO2 = ${spo2}%`);
 
   res.send('Data received!');
 });
